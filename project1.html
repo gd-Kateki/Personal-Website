@@ -1,480 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Curse Of Osiris - A level design prototype by Aditya Nair focused on structure, flow, and intense gameplay mechanics." />
-<meta name="keywords" content="Aditya Nair, Game Designer, Curse Of Osiris, Level Design, Prototyping, Scripting" />
-<meta name="author" content="Aditya Nair" />
-
-<!-- Open Graph -->
-<meta property="og:type" content="article" />
-<meta property="og:title" content="Curse Of Osiris | Aditya Nair Portfolio" />
-<meta property="og:description" content="A level design prototype focused on structure, flow, and gameplay interaction." />
-<meta property="og:image" content="CurseOfOsiris/CO2.png" />
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Curse Of Osiris | Aditya Nair Portfolio" />
-<meta name="twitter:description" content="A level design prototype focused on structure, flow, and gameplay interaction." />
-<meta name="twitter:image" content="CurseOfOsiris/CO2.png" />
-
-<title>Curse Of Osiris — Aditya Nair Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg:       #F7F4EF;
-    --bg-alt:   #EDE8DF;
-    --navy:     #1C2340;
-    --navy-60:  rgba(28,35,64,0.6);
-    --navy-20:  rgba(28,35,64,0.12);
-    --sage:     #7A9E8C;
-    --coral:    #C9775F;
-    --text:     #1C2340;
-    --muted:    #6B7280;
-    --white:    #FFFFFF;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 20px 60px;
-    background: rgba(247,244,239,0.92);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--navy-20);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem; font-weight: 700;
-    letter-spacing: 0.02em; color: var(--navy);
-    text-decoration: none;
-  }
-  .nav-back {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.78rem; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none;
-    transition: color .2s;
-  }
-  .nav-back:hover { color: var(--coral); }
-  .nav-back svg { transition: transform .2s; }
-  .nav-back:hover svg { transform: translateX(-3px); }
-
-  /* ── PROJECT HERO ── */
-  .proj-hero {
-    min-height: 80vh;
-    display: flex; flex-direction: column;
-    padding-top: 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  .proj-hero-img {
-    width: 100%; height: 55vh;
-    object-fit: cover;
-    display: block;
-  }
-  .proj-hero-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 55vh;
-    background: linear-gradient(to bottom, transparent 40%, var(--navy) 100%);
-    pointer-events: none;
-  }
-  .proj-hero-meta {
-    background: var(--navy);
-    padding: 48px 60px 64px;
-    position: relative;
-  }
-  .proj-num {
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--coral); margin-bottom: 16px;
-  }
-  .proj-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    font-weight: 700; line-height: 1.1;
-    color: var(--bg); margin-bottom: 20px;
-  }
-  .proj-type {
-    font-size: 0.78rem; font-weight: 500;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--sage); margin-bottom: 32px;
-  }
-  .proj-meta-row {
-    display: flex; gap: 48px; flex-wrap: wrap;
-  }
-  .proj-meta-item {}
-  .proj-meta-label {
-    font-size: 0.65rem; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(247,244,239,0.4); margin-bottom: 4px;
-  }
-  .proj-meta-value {
-    font-size: 0.9rem; color: var(--bg);
-    font-weight: 400;
-  }
-
-  /* ── CONTENT ── */
-  .proj-content {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 80px 60px;
-  }
-  .proj-section { margin-bottom: 72px; }
-  .proj-section-label {
-    font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--sage); margin-bottom: 20px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .proj-section-label::after {
-    content: ''; flex: 1; max-width: 48px;
-    height: 1px; background: var(--sage);
-  }
-  .proj-section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 700; line-height: 1.25;
-    color: var(--navy); margin-bottom: 20px;
-  }
-  .proj-body {
-    font-size: 1rem; color: var(--navy);
-    line-height: 1.85;
-  }
-  .proj-body p + p { margin-top: 16px; }
-  .proj-pull {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; font-style: italic;
-    color: var(--coral); line-height: 1.5;
-    border-left: 3px solid var(--coral);
-    padding-left: 24px;
-    margin: 36px 0;
-  }
-  .proj-list {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 12px;
-    margin-top: 16px;
-  }
-  .proj-list li {
-    position: relative;
-    padding-left: 24px;
-    font-size: 0.95rem; color: var(--navy); line-height: 1.7;
-    margin-bottom: 8px;
-  }
-  .proj-list li::before {
-    content: '—'; color: var(--coral);
-    position: absolute; left: 0; top: 0;
-    font-weight: 600;
-  }
-
-  /* ── GALLERY ── */
-  .proj-gallery { background: var(--bg-alt); padding: 80px 60px; }
-  .proj-gallery-inner { max-width: 1100px; margin: 0 auto; }
-  .proj-gallery-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 32px; margin-top: 40px;
-  }
-  .gallery-item {
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .gallery-item.wide { grid-column: 1 / -1; }
-  .gallery-caption {
-    font-size: 0.8rem; color: var(--sage);
-    text-align: center; font-family: 'Playfair Display', serif; font-style: italic;
-  }
-  .proj-gallery-img {
-    width: 100%; border-radius: 4px;
-    display: block; object-fit: cover;
-    aspect-ratio: 16/10; transition: transform .3s;
-    cursor: zoom-in;
-  }
-  .proj-gallery-img:hover { transform: scale(1.02); }
-  .gallery-item.wide .proj-gallery-img { aspect-ratio: 21/9; }
-
-  /* ── LIGHTBOX ── */
-  .lightbox {
-    display: none; position: fixed; z-index: 1000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(28,35,64,0.92);
-    align-items: center; justify-content: center;
-    cursor: zoom-out; backdrop-filter: blur(4px);
-  }
-  .lightbox img {
-    max-width: 90%; max-height: 90%;
-    border-radius: 4px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-  }
-
-  /* ── TOOLS ── */
-  .proj-tools-grid {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-top: 16px;
-  }
-  .proj-tool {
-    font-size: 0.78rem; font-weight: 500;
-    padding: 8px 18px;
-    border: 1.5px solid var(--navy-20);
-    border-radius: 2px; color: var(--navy);
-    background: var(--bg);
-  }
-
-  /* ── PROCESS STEPS ── */
-  .process-steps {
-    display: flex; flex-direction: column; gap: 0;
-    margin-top: 20px;
-    border-left: 2px solid var(--navy-20);
-    padding-left: 28px;
-  }
-  .process-step {
-    position: relative; padding-bottom: 36px;
-  }
-  .process-step:last-child { padding-bottom: 0; }
-  .process-step::before {
-    content: '';
-    position: absolute;
-    left: -35px; top: 5px;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--coral);
-    border: 3px solid var(--bg);
-    box-shadow: 0 0 0 2px var(--coral);
-  }
-  .process-step-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem; font-weight: 600;
-    color: var(--navy); margin-bottom: 8px;
-  }
-  .process-step-body {
-    font-size: 0.9rem; color: var(--muted); line-height: 1.75;
-  }
-
-  /* ── PROJECT NAV ── */
-  .proj-nav-footer {
-    background: var(--navy);
-    display: grid; grid-template-columns: 1fr 1fr;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  .proj-nav-link {
-    padding: 48px 60px;
-    text-decoration: none;
-    display: flex; flex-direction: column; gap: 8px;
-    transition: background .2s;
-  }
-  .proj-nav-link:hover { background: rgba(255,255,255,0.03); }
-  .proj-nav-link + .proj-nav-link {
-    border-left: 1px solid rgba(255,255,255,0.06);
-    align-items: flex-end;
-  }
-  .proj-nav-dir {
-    font-size: 0.65rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(247,244,239,0.3);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .proj-nav-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem; font-weight: 600;
-    color: var(--bg);
-  }
-  .proj-nav-sub {
-    font-size: 0.75rem; color: var(--sage);
-    letter-spacing: 0.08em; text-transform: uppercase;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 16px 28px; }
-    .proj-hero-meta { padding: 40px 28px 56px; }
-    .proj-content { padding: 60px 28px; }
-    .proj-gallery { padding: 60px 28px; }
-    .proj-gallery-grid { grid-template-columns: 1fr; }
-    .proj-gallery-img.wide { aspect-ratio: 16/9; }
-    .proj-meta-row { gap: 28px; }
-    .proj-nav-link { padding: 36px 28px; }
-  }
-  @media (max-width: 600px) {
-    .proj-nav-footer { grid-template-columns: 1fr; }
-    .proj-nav-link + .proj-nav-link { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); align-items: flex-start; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Curse of Osiris — a prototype based on Egyptian mythology, heavily inspired by Hades. A deep dive into game mechanics, narration, and gameplay flow by Aditya Nair." />
+  <meta name="keywords" content="Aditya Nair, Game Designer, Curse Of Osiris, Level Design, Unity, Egyptian Mythology, Hades, Prototype" />
+  <meta name="author" content="Aditya Nair" />
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content="Curse Of Osiris | Aditya Nair Portfolio" />
+  <meta property="og:description" content="An Egyptian mythology prototype heavily inspired by Hades. Focuses deeply on game mechanics, narration, and finely-tuned gameplay flow." />
+  <meta property="og:image"       content="CurseOfOsiris/CO1.png" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Curse Of Osiris | Aditya Nair Portfolio" />
+  <meta name="twitter:description" content="An Egyptian mythology prototype heavily inspired by Hades. Focuses deeply on game mechanics, narration, and finely-tuned gameplay flow." />
+  <meta name="twitter:image"       content="CurseOfOsiris/CO1.png" />
+  <title>Curse Of Osiris — Aditya Nair Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">Aditya Nair</a>
-  <a class="nav-back" href="index.html#projects" id="back-btn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    All Projects
-  </a>
-</nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- PROJECT HERO -->
-<div class="proj-hero">
-  <img class="proj-hero-img" src="CurseOfOsiris/CO1.png" alt="Curse of Osiris — Egyptian dungeon in-engine screenshot" />
-  <div class="proj-hero-overlay"></div>
-  <div class="proj-hero-meta">
-    <div class="proj-num">Project 01</div>
-    <h1 class="proj-title">Curse Of Osiris</h1>
-    <div class="proj-type">Level Design · Prototyping · Gameplay Flow</div>
-    <div class="proj-meta-row">
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Role</div>
-        <div class="proj-meta-value">Level Designer & Scripter</div>
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html" aria-label="Aditya Nair — back to home">Aditya Nair</a>
+    <a class="nav-back" href="index.html#projects">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      All Projects
+    </a>
+  </nav>
+
+  <main id="main">
+
+    <!-- PROJECT HERO -->
+    <header class="proj-hero" aria-label="Project overview">
+      <img class="proj-hero-img"
+           src="CurseOfOsiris/CO1.png"
+           alt="Curse of Osiris — Egyptian-themed dungeon level concept art"
+           width="1600" height="900" />
+      <div class="proj-hero-overlay" aria-hidden="true"></div>
+      <div class="proj-hero-meta">
+        <div class="proj-num">Project 01</div>
+        <h1 class="proj-title">Curse Of Osiris</h1>
+        <div class="proj-type">Level Design · Game Design · Prototype</div>
+        <dl class="proj-meta-row">
+          <div>
+            <dt class="proj-meta-label">Engine</dt>
+            <dd class="proj-meta-value">Unity</dd>
+          </div>
+          <div>
+            <dt class="proj-meta-label">Type</dt>
+            <dd class="proj-meta-value">Personal Prototype</dd>
+          </div>
+          <div>
+            <dt class="proj-meta-label">Inspired By</dt>
+            <dd class="proj-meta-value">Hades (Supergiant Games)</dd>
+          </div>
+          <div>
+            <dt class="proj-meta-label">Genre</dt>
+            <dd class="proj-meta-value">Action Roguelite</dd>
+          </div>
+        </dl>
       </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Engine</div>
-        <div class="proj-meta-value">Unity</div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="proj-content">
+
+      <section class="proj-section" aria-labelledby="overview-title">
+        <div class="proj-section-label" aria-hidden="true">Overview</div>
+        <h2 id="overview-title" class="proj-section-title">An underworld steeped in myth.</h2>
+        <div class="proj-body">
+          <p>Curse of Osiris is a personal prototype set in ancient Egypt — a roguelite dungeon crawler built in Unity and heavily inspired by Supergiant's Hades. The core premise: a soul condemned to the Egyptian underworld must fight through procedurally-arranged rooms, slowly uncovering the betrayal that led to their death.</p>
+          <p>Rather than simply mimicking Hades aesthetically, the design goal was to study what makes that game's loop so satisfying — then transplant those principles into a completely different mythology, tone, and set of mechanics.</p>
+        </div>
+        <blockquote class="proj-pull">
+          "The mythology isn't decoration — it's the rulebook. Every mechanic had to feel like it belonged to this world."
+        </blockquote>
+      </section>
+
+      <section class="proj-section" aria-labelledby="design-title">
+        <div class="proj-section-label" aria-hidden="true">Design Goals</div>
+        <h2 id="design-title" class="proj-section-title">What I set out to solve.</h2>
+        <ul class="proj-list" role="list">
+          <li>Create a narrative-driven combat loop where story rewards are tied to mechanical progression</li>
+          <li>Design room layouts with natural chokepoints and looping escape routes</li>
+          <li>Build a boon system grounded in Egyptian deities (Ra, Anubis, Thoth) with distinct playstyle identities</li>
+          <li>Ensure the death-and-rebirth loop feels intentional — not punishing, but purposeful</li>
+          <li>Script ambient dialogue that reacts to player decisions without breaking pace</li>
+        </ul>
+      </section>
+
+      <section class="proj-section" aria-labelledby="process-title">
+        <div class="proj-section-label" aria-hidden="true">Process</div>
+        <h2 id="process-title" class="proj-section-title">From concept to prototype.</h2>
+        <div class="process-steps" role="list">
+          <div class="process-step" role="listitem">
+            <div class="process-step-title">Research &amp; Reference</div>
+            <div class="process-step-body">Deep analysis of Hades' loop — beat maps, room density, dialogue triggers, and boon probability curves. Mapped Egyptian mythology's structure to find equivalent narrative beats.</div>
+          </div>
+          <div class="process-step" role="listitem">
+            <div class="process-step-title">GDD Draft</div>
+            <div class="process-step-body">Wrote a detailed Game Design Document covering the core loop, room archetypes (combat, elite, rest, shop, boss), currency systems, and narrative delivery method.</div>
+          </div>
+          <div class="process-step" role="listitem">
+            <div class="process-step-title">Level Blocking</div>
+            <div class="process-step-body">Built blockout levels in Unity using modular tile sets. Playtested for movement feel, sightlines, and spawn-point fairness before adding any visual dressing.</div>
+          </div>
+          <div class="process-step" role="listitem">
+            <div class="process-step-title">Narrative Layer</div>
+            <div class="process-step-body">Scripted reactive dialogue for the guide character (based on Osiris) using a simple state machine — different lines triggered by low health, first-time room encounters, and run count milestones.</div>
+          </div>
+          <div class="process-step" role="listitem">
+            <div class="process-step-title">Playtest &amp; Iteration</div>
+            <div class="process-step-body">Three rounds of internal playtesting focused on pacing, difficulty curve, and whether players understood the boon system without explicit tutorialisation.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proj-section" aria-labelledby="tools-title">
+        <div class="proj-section-label" aria-hidden="true">Tools Used</div>
+        <h2 id="tools-title" class="proj-section-title">Built with.</h2>
+        <div class="proj-tools-grid" role="list">
+          <span class="proj-tool" role="listitem">Unity</span>
+          <span class="proj-tool" role="listitem">Photoshop</span>
+          <span class="proj-tool" role="listitem">Notion (GDD)</span>
+          <span class="proj-tool" role="listitem">Miro (Level Maps)</span>
+          <span class="proj-tool" role="listitem">Blender</span>
+        </div>
+      </section>
+
+    </div><!-- /.proj-content -->
+
+    <!-- GALLERY -->
+    <section class="proj-gallery" aria-labelledby="gallery-title">
+      <div class="proj-gallery-inner">
+        <div class="section-label" aria-hidden="true">Gallery</div>
+        <h2 id="gallery-title" class="section-title">Visuals &amp; Documentation.</h2>
+        <div class="proj-gallery-grid">
+          <div class="gallery-item wide">
+            <img class="proj-gallery-img"
+                 src="CurseOfOsiris/CO1.png"
+                 alt="Curse of Osiris — overview"
+                 loading="lazy" width="1400" height="600" />
+            <div class="gallery-caption">CO1 — Full level overview</div>
+          </div>
+          <div class="gallery-item">
+            <img class="proj-gallery-img"
+                 src="CurseOfOsiris/CO2.png"
+                 alt="Curse of Osiris — CO2"
+                 loading="lazy" width="700" height="438" />
+            <div class="gallery-caption">CO2</div>
+          </div>
+          <div class="gallery-item">
+            <img class="proj-gallery-img"
+                 src="CurseOfOsiris/CO3.png"
+                 alt="Curse of Osiris — CO3"
+                 loading="lazy" width="700" height="438" />
+            <div class="gallery-caption">CO3</div>
+          </div>
+        </div>
       </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Duration</div>
-        <div class="proj-meta-value">2 Months</div>
-      </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Team Size</div>
-        <div class="proj-meta-value">Group Project</div>
-      </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+      <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+      <img id="lightbox-img" src="" alt="" />
     </div>
-  </div>
-</div>
 
-<!-- MAIN CONTENT -->
-<div class="proj-content">
+    <!-- PROJECT NAV FOOTER -->
+    <nav class="proj-nav-footer" aria-label="Project navigation">
+      <a class="proj-nav-link" href="index.html#projects">
+        <span class="proj-nav-dir">← Back</span>
+        <span class="proj-nav-title">All Projects</span>
+        <span class="proj-nav-sub">Return to portfolio</span>
+      </a>
+      <a class="proj-nav-link" href="project2.html">
+        <span class="proj-nav-dir">Next →</span>
+        <span class="proj-nav-title">Deep Into Dreams</span>
+        <span class="proj-nav-sub">Psychological Horror · Puzzle</span>
+      </a>
+    </nav>
 
-  <!-- OVERVIEW -->
-  <div class="proj-section" id="overview">
-    <div class="proj-section-label">Overview</div>
-    <h2 class="proj-section-title">Structure, flow, and interaction.</h2>
-    <div class="proj-body">
-      <p>Curse Of Osiris is a prototyping based on Egyptian mythology. The concept of the game is mainly inspired from Hades. Game design concentrating heavily on game mechanics and narration.</p>
-      <p>As a core member of this group project, my mission was to architect an intense, finely-tuned gameplay slice. Every corridor, every open arena, and every chokepoint was deliberately engineered to test the player's reflexes and tactical adaptability, resulting in a fiercely playable experience.</p>
-    </div>
-  </div>
+  </main>
 
-  <!-- MY ROLE -->
-  <div class="proj-section" id="role">
-    <div class="proj-section-label">Role & Contribution</div>
-    <h2 class="proj-section-title">Architecting the experience.</h2>
-    <ul class="proj-list">
-      <li><strong>Prototyping & Whiteboxing:</strong> Spearheaded the initial blockouts, translating abstract gameplay concepts into tangible, perfectly-scaled 3D spaces that naturally guide player movement and combat flow.</li>
-      <li><strong>Asset Implementation:</strong> Meticulously placed environmental assets to build a cohesive aesthetic while establishing clear sightlines, cover spots, and focal points that subconsciously drive navigation.</li>
-      <li><strong>Gameplay Scripting:</strong> Engineered robust scripting for core mechanics, dynamic encounters, and interactive elements, ensuring a flawless, responsive gameplay loop.</li>
-      <li><strong>UI Elements:</strong> Designed and implemented critical UI components that communicate essential information clearly, keeping the player deeply immersed in the action without unnecessary clutter.</li>
-    </ul>
-  </div>
+  <script>
+    /* Nav scroll shadow */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
 
-  <!-- PLAYER EXPERIENCE -->
-  <div class="proj-section" id="experience">
-    <div class="proj-section-label">Player Experience</div>
-    <h2 class="proj-section-title">Mythology meets mechanics.</h2>
-    <div class="proj-body">
-      <p>Blending the rich thematic backdrop of Egyptian mythology with rapid, Hades-inspired combat pacing, the player experience is designed to be both narratively engaging and mechanically demanding. The environment and the narrative feed directly into the gameplay loop.</p>
-      <p>By intricately balancing heavy mechanical design with deep narration, the level breathes rhythmically—oscillating between high-tension combat arenas and meaningful narrative moments. The result is a visceral, deeply satisfying loop where the player's skill and engagement with the story are the ultimate focal points.</p>
-    </div>
-  </div>
+    /* Scroll reveal */
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  <!-- TOOLS -->
-  <div class="proj-section" id="tools">
-    <div class="proj-section-label">Tools Used</div>
-    <h2 class="proj-section-title">The stack.</h2>
-    <div class="proj-tools-grid">
-      <span class="proj-tool">Unity (ProBuilder)</span>
-      <span class="proj-tool">Blender</span>
-      <span class="proj-tool">Photoshop</span>
-      <span class="proj-tool">Notion (GDD)</span>
-      <span class="proj-tool">Graph Paper + Pencil</span>
-      <span class="proj-tool">C# (Basic Scripting)</span>
-    </div>
-  </div>
+    /* Lightbox */
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn    = lightbox.querySelector('.lightbox-close');
 
-</div>
-
-<!-- GALLERY -->
-<div class="proj-gallery">
-  <div class="proj-gallery-inner">
-    <div class="proj-section-label" style="margin-bottom:0;">Gallery</div>
-    <h2 class="proj-section-title" style="margin-top:20px;">Visual Documentation</h2>
-    <div class="proj-gallery-grid">
-      <div class="gallery-item wide">
-        <img class="proj-gallery-img" src="CurseOfOsiris/CO3.png" alt="Curse of Osiris — full level layout isometric view" onclick="openLightbox(this.src)" />
-        <div class="gallery-caption">CO3.png — Isometric Level Layout Overview</div>
-      </div>
-      <div class="gallery-item">
-        <img class="proj-gallery-img" src="CurseOfOsiris/CO1.png" alt="Curse of Osiris — throne room encounter" onclick="openLightbox(this.src)" />
-        <div class="gallery-caption">CO1.png — The Throne Room Encounter Area</div>
-      </div>
-      <div class="gallery-item">
-        <img class="proj-gallery-img" src="CurseOfOsiris/CO2.png" alt="Curse of Osiris — dungeon rooms top-down" onclick="openLightbox(this.src)" />
-        <div class="gallery-caption">CO2.png — Dungeon Corridors Top-Down</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PROJECT FOOTER NAV -->
-<div class="proj-nav-footer" role="navigation" aria-label="Project navigation">
-  <a class="proj-nav-link" href="index.html#projects" id="prev-proj-link">
-    <div class="proj-nav-dir">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-      Back
-    </div>
-    <div class="proj-nav-name">All Projects</div>
-    <div class="proj-nav-sub">Portfolio Index</div>
-  </a>
-  <a class="proj-nav-link" href="project2.html" id="next-proj-link">
-    <div class="proj-nav-dir">
-      Next Project
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </div>
-    <div class="proj-nav-name">The Cartographer's Lament</div>
-    <div class="proj-nav-sub">Narrative Design · Worldbuilding</div>
-  </a>
-</div>
-
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="Full screen image" />
-</div>
-
-<script>
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').style.display = 'flex';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
+    document.querySelectorAll('.proj-gallery-img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      });
     });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.proj-section, .process-step, .gallery-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(28px)';
-    el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
-    observer.observe(el);
-  });
-</script>
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    closeBtn.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
 </body>
 </html>
