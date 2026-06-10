@@ -888,6 +888,24 @@ section { padding: var(--space-xl) var(--space-lg); }
   .contact-links { flex-direction: column; align-items: center; }
 }
 
+/* ── PROJECT PAGE — NAV OVERRIDE ─────────────────────────── */
+/* On project pages the content is dark navy, so we keep the
+   nav dark throughout for consistent readability.             */
+.proj-page nav {
+  background: rgba(28, 35, 64, 0.97);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.proj-page nav.scrolled {
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+}
+.proj-page .nav-logo { color: var(--bg); }
+.proj-page .nav-back {
+  color: rgba(247, 244, 239, 0.55);
+}
+.proj-page .nav-back svg { stroke: rgba(247, 244, 239, 0.55); }
+.proj-page .nav-back:hover,
+.proj-page .nav-back:hover svg { color: var(--coral); stroke: var(--coral); }
+
 /* ── REDUCED MOTION ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
