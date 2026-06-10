@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Blogs and Case Studies by Aditya Nair." />
+<title>Blogs — Aditya Nair Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* Base styles copied from index.html */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:       #F7F4EF;
+    --bg-alt:   #EDE8DF;
+    --navy:     #1C2340;
+    --navy-60:  rgba(28,35,64,0.6);
+    --navy-20:  rgba(28,35,64,0.12);
+    --sage:     #7A9E8C;
+    --coral:    #C9775F;
+    --text:     #1C2340;
+    --muted:    #6B7280;
+    --white:    #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    mix-blend-mode: difference; color: #fff;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; font-style: italic;
+    text-decoration: none; color: inherit;
+  }
+  .nav-links {
+    list-style: none; display: flex; gap: 32px;
+  }
+  .nav-links a {
+    text-decoration: none; color: inherit;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 0.6; }
+
+  /* HERO */
+  .blogs-hero {
+    padding: 180px 60px 80px;
+    background: var(--navy); color: var(--bg);
+    position: relative;
+  }
+  .blogs-hero-inner {
+    max-width: 1100px; margin: 0 auto;
+  }
+  .blogs-eyebrow {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .blogs-eyebrow::before {
+    content: ''; display: block;
+    width: 36px; height: 1px; background: var(--sage);
+  }
+  .blogs-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.1; font-weight: 700;
+  }
+
+  /* GRID */
+  .blogs-section {
+    padding: 100px 60px;
+    max-width: 1220px; margin: 0 auto;
+  }
+  .blogs-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 40px; margin-top: 20px;
+  }
+  .blog-card {
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; group;
+  }
+  .blog-card-img {
+    width: 100%; aspect-ratio: 16/10;
+    object-fit: cover; border-radius: 4px;
+    margin-bottom: 24px; transition: transform .4s ease;
+  }
+  .blog-card-img-wrapper {
+    overflow: hidden; border-radius: 4px;
+  }
+  .blog-card:hover .blog-card-img { transform: scale(1.03); }
+  .blog-meta {
+    display: flex; gap: 16px; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 12px;
+  }
+  .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 600; line-height: 1.2;
+    color: var(--navy); margin-bottom: 12px;
+    transition: color .2s;
+  }
+  .blog-card:hover .blog-title { color: var(--coral); }
+  .blog-excerpt {
+    font-size: 0.95rem; color: var(--muted); line-height: 1.6;
+  }
+  
+  /* FOOTER */
+  #contact {
+    background: var(--navy);
+    text-align: center; padding: 100px 60px 80px;
+  }
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-style: italic; color: var(--bg);
+    margin-bottom: 40px;
+  }
+  .contact-links {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 60px;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 12px 28px; border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 2px; color: var(--bg);
+    text-decoration: none; transition: all .2s;
+  }
+  .contact-link:hover { border-color: var(--coral); color: var(--coral); }
+  .footer-line {
+    font-size: 0.72rem; color: rgba(247,244,239,0.25);
+    letter-spacing: 0.08em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 28px; }
+    .blogs-hero { padding: 140px 28px 60px; }
+    .blogs-section { padding: 60px 28px; }
+    #contact { padding: 80px 28px 60px; }
+    .nav-links { gap: 16px; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Aditya Nair</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="blogs.html">Blogs</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="blogs-hero">
+  <div class="blogs-hero-inner">
+    <div class="blogs-eyebrow">Case Studies & Thoughts</div>
+    <h1 class="blogs-headline">Deep dives into mechanics,<br>player psychology, and systems.</h1>
+  </div>
+</header>
+
+<section class="blogs-section">
+  <div class="blogs-grid">
+    <!-- BLOG POST 1 -->
+    <a href="blog-rng-games.html" class="blog-card sys-card">
+      <div class="blog-card-img-wrapper">
+        <img src="CurseOfOsiris/CO1.png" alt="RNG Games Roblox" class="blog-card-img">
+      </div>
+      <div class="blog-meta">
+        <span>Systems Analysis</span>
+        <span>Case Study</span>
+      </div>
+      <h2 class="blog-title">The Case of "Roll" Economy: Why RNG Games Rule Roblox.</h2>
+      <p class="blog-excerpt">Exploring the psychological "hook", compulsion loops, and social signaling behind the rise of luck-based games on Roblox.</p>
+    </a>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="contact-title">Let's connect.</h2>
+  <div class="contact-links">
+    <a href="mailto:adityanair0402@gmail.com" class="contact-link">Email Me</a>
+    <a href="https://www.linkedin.com/in/adityanair0402/" class="contact-link" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-line">© 2026 Aditya Nair. Designed with intent.</div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.sys-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
