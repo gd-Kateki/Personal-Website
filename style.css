@@ -92,7 +92,6 @@ html.dark-mode {
   --navy-20: rgba(255,255,255,0.05);
   --navy-60: rgba(255,255,255,0.4);
   --muted: #9CA3AF;
-  --white: #0F121C;
   --sage: #90BCA7;
   --coral: #D58D78;
 }
@@ -139,17 +138,32 @@ html.dark-mode .proj-tool {
 }
 html.dark-mode .lightbox { background-color: rgba(15, 18, 28, 0.96); }
 
-/* Theme toggle button styling */
+/* Theme toggle button styling (Floating Action Button) */
 .theme-toggle {
-  background: none; border: none; cursor: pointer;
-  color: var(--text); padding: 8px;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  background: var(--bg);
+  border: 1px solid var(--navy-20);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text);
   display: flex; align-items: center; justify-content: center;
-  transition: color 0.2s, transform 0.2s;
-  margin-left: auto; margin-right: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  margin: 0;
 }
-.theme-toggle:hover { color: var(--coral); transform: scale(1.1); }
+.theme-toggle:hover { 
+  color: var(--coral); 
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-color: var(--coral);
+}
 @media (max-width: 900px) {
-  .theme-toggle { margin-right: 24px; }
+  .theme-toggle { bottom: 16px; right: 16px; width: 44px; height: 44px; }
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: -2px; left: 0;
@@ -196,7 +210,7 @@ html.dark-mode .lightbox { background-color: rgba(15, 18, 28, 0.96); }
 }
 .nav-toggle:hover { background: var(--navy-20); }
 .nav-toggle span {
-  display: block; height: 2px; background: var(--navy);
+  display: block; height: 2px; background: var(--text);
   border-radius: 2px;
   transition: transform .3s, opacity .3s, width .3s;
   transform-origin: center;
