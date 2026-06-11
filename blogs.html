@@ -1,222 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Blogs and Case Studies by Aditya Nair." />
-<title>Blogs — Aditya Nair Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-  /* Base styles copied from index.html */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg:       #F7F4EF;
-    --bg-alt:   #EDE8DF;
-    --navy:     #1C2340;
-    --navy-60:  rgba(28,35,64,0.6);
-    --navy-20:  rgba(28,35,64,0.12);
-    --sage:     #7A9E8C;
-    --coral:    #C9775F;
-    --text:     #1C2340;
-    --muted:    #6B7280;
-    --white:    #FFFFFF;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  /* NAV */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 20px 60px;
-    display: flex; justify-content: space-between; align-items: center;
-    mix-blend-mode: difference; color: #fff;
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem; font-weight: 700; font-style: italic;
-    text-decoration: none; color: inherit;
-  }
-  .nav-links {
-    list-style: none; display: flex; gap: 32px;
-  }
-  .nav-links a {
-    text-decoration: none; color: inherit;
-    font-size: 0.8rem; font-weight: 500;
-    letter-spacing: 0.05em; text-transform: uppercase;
-    transition: opacity .2s;
-  }
-  .nav-links a:hover { opacity: 0.6; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blogs and case studies by Aditya Nair — game design breakdowns, level design deep-dives, and player psychology analysis." />
+  <meta name="keywords" content="Aditya Nair, Game Design Blog, Case Studies, Level Design, Player Psychology, RNG Games" />
+  <meta name="author" content="Aditya Nair" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Blogs | Aditya Nair Portfolio" />
+  <meta property="og:description" content="Game design breakdowns, level design deep-dives, and player psychology analysis." />
+  <meta property="og:image"       content="CurseOfOsiris/CO1.png" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Blogs | Aditya Nair Portfolio" />
+  <meta name="twitter:description" content="Game design breakdowns, level design deep-dives, and player psychology analysis." />
+  <meta name="twitter:image"       content="CurseOfOsiris/CO1.png" />
+  <title>Blogs — Aditya Nair Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── BLOGS PAGE STYLES ── */
 
-  /* HERO */
-  .blogs-hero {
-    padding: 180px 60px 80px;
-    background: var(--navy); color: var(--bg);
-    position: relative;
-  }
-  .blogs-hero-inner {
-    max-width: 1100px; margin: 0 auto;
-  }
-  .blogs-eyebrow {
-    font-size: 0.75rem; font-weight: 500;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--sage); margin-bottom: 24px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .blogs-eyebrow::before {
-    content: ''; display: block;
-    width: 36px; height: 1px; background: var(--sage);
-  }
-  .blogs-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
-    line-height: 1.1; font-weight: 700;
-  }
+    /* Hero */
+    .blogs-hero {
+      background: var(--navy);
+      padding: calc(var(--nav-h) + 60px) var(--space-lg) 56px;
+    }
+    .blogs-hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .blogs-eyebrow {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .blogs-eyebrow::before {
+      content: ''; display: block;
+      width: 32px; height: 1px; background: var(--sage);
+    }
+    .blogs-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 1.12; font-weight: 700;
+      color: var(--bg);
+    }
+    .blogs-count {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(247,244,239,0.35); margin-top: 8px;
+    }
 
-  /* GRID */
-  .blogs-section {
-    padding: 100px 60px;
-    max-width: 1220px; margin: 0 auto;
-  }
-  .blogs-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 40px; margin-top: 20px;
-  }
-  .blog-card {
-    text-decoration: none; color: inherit;
-    display: flex; flex-direction: column; group;
-  }
-  .blog-card-img {
-    width: 100%; aspect-ratio: 16/10;
-    object-fit: cover; border-radius: 4px;
-    margin-bottom: 24px; transition: transform .4s ease;
-  }
-  .blog-card-img-wrapper {
-    overflow: hidden; border-radius: 4px;
-  }
-  .blog-card:hover .blog-card-img { transform: scale(1.03); }
-  .blog-meta {
-    display: flex; gap: 16px; font-size: 0.75rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--sage); margin-bottom: 12px;
-  }
-  .blog-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; font-weight: 600; line-height: 1.2;
-    color: var(--navy); margin-bottom: 12px;
-    transition: color .2s;
-  }
-  .blog-card:hover .blog-title { color: var(--coral); }
-  .blog-excerpt {
-    font-size: 0.95rem; color: var(--muted); line-height: 1.6;
-  }
-  
-  /* FOOTER */
-  #contact {
-    background: var(--navy);
-    text-align: center; padding: 100px 60px 80px;
-  }
-  .contact-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem; font-style: italic; color: var(--bg);
-    margin-bottom: 40px;
-  }
-  .contact-links {
-    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 60px;
-  }
-  .contact-link {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.8rem; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 12px 28px; border: 1.5px solid rgba(255,255,255,0.15);
-    border-radius: 2px; color: var(--bg);
-    text-decoration: none; transition: all .2s;
-  }
-  .contact-link:hover { border-color: var(--coral); color: var(--coral); }
-  .footer-line {
-    font-size: 0.72rem; color: rgba(247,244,239,0.25);
-    letter-spacing: 0.08em;
-  }
+    /* Search + Filter bar */
+    .blogs-toolbar {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--navy-20);
+      position: sticky; top: var(--nav-h); z-index: 50;
+    }
+    .blogs-toolbar-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 20px var(--space-lg);
+      display: flex; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+    }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 16px 28px; }
-    .blogs-hero { padding: 140px 28px 60px; }
-    .blogs-section { padding: 60px 28px; }
-    #contact { padding: 80px 28px 60px; }
-    .nav-links { gap: 16px; }
-  }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-  }
-</style>
+    /* Search */
+    .search-wrap {
+      position: relative; flex: 1; min-width: 200px; max-width: 340px;
+    }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); pointer-events: none;
+    }
+    .blogs-search {
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem; color: var(--navy);
+      background: var(--bg);
+      border: 1.5px solid var(--navy-20);
+      border-radius: 40px; outline: none;
+      transition: border-color .2s;
+    }
+    .blogs-search::placeholder { color: var(--muted); }
+    .blogs-search:focus { border-color: var(--coral); }
+
+    /* Filter pills */
+    .filter-pills {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 7px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1.5px solid var(--navy-20);
+      border-radius: 40px; background: none;
+      color: var(--muted); cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-pill:hover { border-color: var(--sage); color: var(--sage); }
+    .filter-pill.active {
+      background: var(--navy); color: var(--bg);
+      border-color: var(--navy);
+    }
+
+    /* Results count */
+    .results-meta {
+      margin-left: auto;
+      font-size: 0.78rem; color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Grid */
+    .blogs-section {
+      max-width: 1100px; margin: 0 auto;
+      padding: 56px var(--space-lg) 100px;
+    }
+
+    /* Featured (first card full-width) */
+    .blog-card-featured {
+      text-decoration: none; color: inherit;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--navy-20);
+      margin-bottom: 48px;
+      transition: box-shadow .3s;
+    }
+    .blog-card-featured:hover {
+      box-shadow: 0 8px 32px rgba(28,35,64,0.1);
+    }
+    .blog-card-featured .blog-card-img-wrapper {
+      overflow: hidden; margin: 0;
+    }
+    .blog-card-featured .blog-card-img {
+      width: 100%; height: 100%; min-height: 320px;
+      object-fit: cover; display: block;
+      transition: transform .5s ease;
+    }
+    .blog-card-featured:hover .blog-card-img { transform: scale(1.04); }
+    .blog-card-featured .blog-card-body {
+      padding: 48px 44px;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 14px;
+      background: var(--bg);
+    }
+    .blog-featured-badge {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 4px;
+    }
+
+    /* Regular cards grid */
+    .blogs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px;
+    }
+    .blog-card {
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+    }
+    .blog-card-img-wrapper {
+      overflow: hidden; border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .blog-card-img {
+      width: 100%; aspect-ratio: 16/10;
+      object-fit: cover; display: block;
+      transition: transform .4s ease;
+    }
+    .blog-card:hover .blog-card-img { transform: scale(1.04); }
+
+    .blog-card-meta {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 10px;
+    }
+    .blog-tag {
+      background: rgba(122,158,140,0.1);
+      padding: 3px 10px; border-radius: 20px;
+      color: var(--sage);
+    }
+    .blog-date { color: var(--muted); font-weight: 400; }
+    .blog-read-time { color: var(--muted); font-weight: 400; }
+    .blog-dot { color: var(--navy-20); }
+
+    .blog-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem; font-weight: 600; line-height: 1.25;
+      color: var(--navy); margin-bottom: 10px;
+      transition: color .2s;
+    }
+    .blog-card:hover .blog-card-title,
+    .blog-card-featured:hover .blog-card-title { color: var(--coral); }
+
+    .blog-card-excerpt {
+      font-size: 0.9rem; color: var(--muted);
+      line-height: 1.7; flex: 1;
+    }
+    .blog-card-cta {
+      margin-top: 18px;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--coral);
+      display: flex; align-items: center; gap: 6px;
+      transition: gap .2s;
+    }
+    .blog-card:hover .blog-card-cta,
+    .blog-card-featured:hover .blog-card-cta { gap: 10px; }
+
+    /* Empty state */
+    .blogs-empty {
+      text-align: center; padding: 80px 20px;
+      display: none;
+    }
+    .blogs-empty.visible { display: block; }
+    .blogs-empty h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--navy); margin-bottom: 12px;
+    }
+    .blogs-empty p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Hidden card */
+    .blog-card[hidden],
+    .blog-card-featured[hidden] { display: none; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .blogs-hero { padding: calc(var(--nav-h) + 40px) var(--space-lg) 40px; }
+      .blogs-toolbar-inner { padding: 16px var(--space-lg); }
+      .blogs-section { padding: 40px var(--space-lg) 72px; }
+      .blog-card-featured { grid-template-columns: 1fr; }
+      .blog-card-featured .blog-card-img { min-height: 240px; }
+      .blog-card-featured .blog-card-body { padding: 32px 28px; }
+      .blogs-grid { gap: 32px; }
+      .results-meta { display: none; }
+    }
+    @media (max-width: 600px) {
+      .blogs-grid { grid-template-columns: 1fr; }
+      .search-wrap { max-width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">Aditya Nair</a>
-  <ul class="nav-links">
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#projects">Projects</a></li>
-    <li><a href="blogs.html">Blogs</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="blogs-hero">
-  <div class="blogs-hero-inner">
-    <div class="blogs-eyebrow">Case Studies & Thoughts</div>
-    <h1 class="blogs-headline">Deep dives into mechanics,<br>player psychology, and systems.</h1>
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html" aria-label="Aditya Nair — back to home">Aditya Nair</a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="blogs.html" class="nav-blog-btn">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div id="nav-drawer" class="nav-drawer" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html#about" class="drawer-link">About</a>
+    <a href="index.html#work" class="drawer-link">Work</a>
+    <a href="index.html#projects" class="drawer-link">Projects</a>
+    <a href="blogs.html" class="drawer-link">Blogs</a>
+    <a href="index.html#contact" class="drawer-link">Contact</a>
   </div>
-</header>
 
-<section class="blogs-section">
-  <div class="blogs-grid">
-    <!-- BLOG POST 1 -->
-    <a href="blog-rng-games.html" class="blog-card sys-card">
-      <div class="blog-card-img-wrapper">
-        <img src="CurseOfOsiris/CO1.png" alt="RNG Games Roblox" class="blog-card-img">
+  <main id="main">
+
+    <!-- HERO -->
+    <header class="blogs-hero">
+      <div class="blogs-hero-inner">
+        <div>
+          <div class="blogs-eyebrow">Writing & Analysis</div>
+          <h1 class="blogs-headline">Deep dives into<br>mechanics &amp; minds.</h1>
+          <p class="blogs-count" id="article-count">1 Article</p>
+        </div>
       </div>
-      <div class="blog-meta">
-        <span>Systems Analysis</span>
-        <span>Case Study</span>
+    </header>
+
+    <!-- TOOLBAR: Search + Filters -->
+    <div class="blogs-toolbar" role="search" aria-label="Filter articles">
+      <div class="blogs-toolbar-inner">
+        <div class="search-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            type="search"
+            class="blogs-search"
+            id="blogs-search"
+            placeholder="Search articles…"
+            aria-label="Search articles"
+            autocomplete="off"
+          />
+        </div>
+        <div class="filter-pills" role="group" aria-label="Filter by category">
+          <button class="filter-pill active" data-filter="all">All</button>
+          <button class="filter-pill" data-filter="systems-analysis">Systems Analysis</button>
+          <button class="filter-pill" data-filter="case-study">Case Study</button>
+          <button class="filter-pill" data-filter="level-design">Level Design</button>
+          <button class="filter-pill" data-filter="narrative">Narrative</button>
+          <button class="filter-pill" data-filter="player-psychology">Player Psychology</button>
+        </div>
+        <div class="results-meta" id="results-meta" aria-live="polite">Showing 1 of 1</div>
       </div>
-      <h2 class="blog-title">The Case of "Roll" Economy: Why RNG Games Rule Roblox.</h2>
-      <p class="blog-excerpt">Exploring the psychological "hook", compulsion loops, and social signaling behind the rise of luck-based games on Roblox.</p>
-    </a>
-  </div>
-</section>
+    </div>
 
-<section id="contact">
-  <h2 class="contact-title">Let's connect.</h2>
-  <div class="contact-links">
-    <a href="mailto:adityanair0402@gmail.com" class="contact-link">Email Me</a>
-    <a href="https://www.linkedin.com/in/adityanair0402/" class="contact-link" target="_blank">LinkedIn</a>
-  </div>
-  <div class="footer-line">© 2026 Aditya Nair. Designed with intent.</div>
-</section>
+    <!-- ARTICLES -->
+    <section class="blogs-section" aria-label="Articles">
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
+      <!-- FEATURED ARTICLE -->
+      <a
+        href="blog-rng-games.html"
+        class="blog-card-featured"
+        data-tags="systems-analysis case-study player-psychology"
+        data-title="the case of roll economy why rng games rule roblox"
+        aria-label="Read: The Case of Roll Economy"
+      >
+        <div class="blog-card-img-wrapper">
+          <img class="blog-card-img"
+               src="CurseOfOsiris/CO1.png"
+               alt="Colourful luck-based mechanics visualisation"
+               loading="lazy" />
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-featured-badge">✦ Latest Article</div>
+          <div class="blog-card-meta">
+            <span class="blog-tag">Systems Analysis</span>
+            <span class="blog-tag">Case Study</span>
+            <span class="blog-dot">·</span>
+            <span class="blog-date">June 2026</span>
+            <span class="blog-dot">·</span>
+            <span class="blog-read-time">5 min read</span>
+          </div>
+          <h2 class="blog-card-title">The Case of "Roll" Economy: Why RNG Games Rule Roblox.</h2>
+          <p class="blog-card-excerpt">Exploring the psychological compulsion loops, social signaling, and variable-ratio reinforcement schedules that make luck-based games dangerously addictive.</p>
+          <div class="blog-card-cta" aria-hidden="true">
+            Read Article
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- REGULAR GRID (future articles go here) -->
+      <div class="blogs-grid" id="blogs-grid">
+        <!-- Future articles will be added here -->
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div class="blogs-empty" id="blogs-empty" role="status">
+        <h3>No articles found.</h3>
+        <p>Try adjusting your search or filter — more articles are on the way.</p>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <section id="contact" aria-labelledby="blogs-contact-title">
+      <div class="section-label" aria-hidden="true">Contact</div>
+      <h2 id="blogs-contact-title" class="section-title">Let's make something<br>worth playing.</h2>
+      <p class="contact-sub">Open to full-time roles, freelance projects, and game jams. Based in Maharashtra, India.</p>
+      <div class="contact-links">
+        <a href="mailto:aditya.gamedesigner0402@gmail.com" class="contact-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email me
+        </a>
+        <a href="https://www.linkedin.com/in/adityanair0402/" class="contact-link" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <p class="footer-line">© 2026 Aditya Nair. Designed with intent.</p>
+    </section>
+
+  </main>
+
+  <script>
+    /* ── Mobile nav ──────────────────────────────────── */
+    const toggle = document.querySelector('.nav-toggle');
+    const drawer = document.getElementById('nav-drawer');
+    toggle.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+      toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.sys-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-</script>
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { drawer.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    });
+
+    /* ── Nav scroll shadow ───────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* ── Scroll reveal ───────────────────────────────── */
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Search & Filter ─────────────────────────────── */
+    const searchInput   = document.getElementById('blogs-search');
+    const filterBtns    = document.querySelectorAll('.filter-pill');
+    const featuredCard  = document.querySelector('.blog-card-featured');
+    const gridCards     = document.querySelectorAll('#blogs-grid .blog-card');
+    const emptyState    = document.getElementById('blogs-empty');
+    const resultsMeta   = document.getElementById('results-meta');
+    const articleCount  = document.getElementById('article-count');
+
+    let activeFilter = 'all';
+    let searchQuery  = '';
+
+    // All searchable cards (featured + grid)
+    const allCards = [featuredCard, ...gridCards];
+    const total    = allCards.length;
+    articleCount.textContent = total + (total === 1 ? ' Article' : ' Articles');
+
+    function matchesFilter(card) {
+      if (activeFilter === 'all') return true;
+      return card.dataset.tags && card.dataset.tags.includes(activeFilter);
+    }
+
+    function matchesSearch(card) {
+      if (!searchQuery) return true;
+      const title   = (card.dataset.title || '').toLowerCase();
+      const tags    = (card.dataset.tags  || '').toLowerCase();
+      const excerpt = (card.querySelector('.blog-card-excerpt')?.textContent || '').toLowerCase();
+      return title.includes(searchQuery) || tags.includes(searchQuery) || excerpt.includes(searchQuery);
+    }
+
+    function applyFilters() {
+      let visible = 0;
+      allCards.forEach(card => {
+        const show = matchesFilter(card) && matchesSearch(card);
+        card.hidden = !show;
+        if (show) visible++;
+      });
+
+      // Empty state
+      emptyState.classList.toggle('visible', visible === 0);
+      resultsMeta.textContent = `Showing ${visible} of ${total}`;
+    }
+
+    // Filter pills
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // Search
+    searchInput.addEventListener('input', () => {
+      searchQuery = searchInput.value.trim().toLowerCase();
+      applyFilters();
+    });
+
+    // Init
+    applyFilters();
+  </script>
+
 </body>
 </html>

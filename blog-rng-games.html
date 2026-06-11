@@ -1,180 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Case Study: The Case of Roll Economy and Why RNG Games Rule Roblox." />
-<title>The Case of "Roll" Economy — Aditya Nair Blogs</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg:       #F7F4EF;
-    --bg-alt:   #EDE8DF;
-    --navy:     #1C2340;
-    --navy-60:  rgba(28,35,64,0.6);
-    --navy-20:  rgba(28,35,64,0.12);
-    --sage:     #7A9E8C;
-    --coral:    #C9775F;
-    --text:     #1C2340;
-    --muted:    #6B7280;
-    --white:    #FFFFFF;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px; line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case Study: Why RNG luck-based games dominate Roblox — an analysis of compulsion loops, social signaling, and player psychology by Aditya Nair." />
+  <meta name="keywords" content="Aditya Nair, RNG Games, Roblox, Game Design, Player Psychology, Compulsion Loop, Case Study" />
+  <meta name="author" content="Aditya Nair" />
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content='The Case of "Roll" Economy | Aditya Nair Blog' />
+  <meta property="og:description" content="Why RNG luck-based games dominate Roblox — an analysis of compulsion loops, social signaling, and variable-ratio reinforcement schedules." />
+  <meta property="og:image"       content="CurseOfOsiris/CO1.png" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content='The Case of "Roll" Economy | Aditya Nair Blog' />
+  <meta name="twitter:description" content="Why RNG luck-based games dominate Roblox — an analysis of compulsion loops and social signaling." />
+  <meta name="twitter:image"       content="CurseOfOsiris/CO1.png" />
+  <title>The Case of "Roll" Economy — Aditya Nair Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── BLOG POST — SPECIFIC STYLES ── */
+    .blog-hero {
+      background: var(--navy);
+      padding: calc(var(--nav-h) + 80px) var(--space-lg) 0;
+      text-align: center;
+    }
+    .blog-hero-inner {
+      max-width: 820px; margin: 0 auto;
+      padding-bottom: 72px;
+    }
+    .blog-hero-meta {
+      display: flex; justify-content: center;
+      align-items: center; gap: 16px; flex-wrap: wrap;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 28px;
+    }
+    .blog-hero-meta span + span::before {
+      content: '·'; margin-right: 16px; color: rgba(122,158,140,0.4);
+    }
+    .blog-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      line-height: 1.15; font-weight: 700;
+      color: var(--bg); margin-bottom: 0;
+    }
 
-  /* NAV */
-  .proj-nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 24px 60px; display: flex; justify-content: space-between; align-items: center;
-    mix-blend-mode: difference; color: var(--white);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; font-style: italic;
-    text-decoration: none; color: inherit;
-  }
-  .nav-back {
-    display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: inherit;
-    transition: opacity .2s;
-  }
-  .nav-back:hover { opacity: 0.6; }
+    /* Hero image — overlapping the dark hero into the content */
+    .blog-cover {
+      display: block;
+      width: 100%; max-width: 1100px;
+      aspect-ratio: 21/9; object-fit: cover;
+      border-radius: 4px;
+      margin: -36px auto 0;
+      position: relative; z-index: 10;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+    }
 
-  /* HERO */
-  .blog-hero {
-    background: var(--navy); color: var(--bg);
-    padding: 180px 60px 100px; text-align: center;
-  }
-  .blog-hero-inner {
-    max-width: 900px; margin: 0 auto;
-  }
-  .blog-meta-top {
-    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--sage); margin-bottom: 24px;
-    display: flex; justify-content: center; gap: 16px;
-  }
-  .blog-hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 4.5vw, 4rem);
-    line-height: 1.15; margin-bottom: 32px;
-  }
-  .blog-hero-img {
-    width: 100%; max-width: 1000px; aspect-ratio: 21/9; object-fit: cover;
-    margin: -60px auto 60px; border-radius: 4px; display: block;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-    position: relative; z-index: 10;
-  }
+    /* Article body */
+    .blog-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 72px var(--space-lg) 100px;
+      font-size: 1.05rem; line-height: 1.85;
+      color: var(--navy);
+    }
+    .blog-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      font-weight: 700; color: var(--navy);
+      margin: 60px 0 20px; line-height: 1.25;
+    }
+    .blog-body p { margin-bottom: 24px; }
+    .blog-body strong { color: var(--navy); font-weight: 600; }
+    .blog-body blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-style: italic;
+      color: var(--coral); line-height: 1.5;
+      border-left: 3px solid var(--coral);
+      padding-left: 24px; margin: 48px 0;
+    }
 
-  /* CONTENT */
-  .blog-content {
-    max-width: 760px; margin: 0 auto; padding: 0 40px 100px;
-    font-size: 1.1rem; line-height: 1.8; color: var(--navy);
-  }
-  .blog-content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; color: var(--navy);
-    margin: 60px 0 24px; line-height: 1.3;
-  }
-  .blog-content h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.3rem; font-weight: 600; color: var(--navy);
-    margin: 40px 0 16px;
-  }
-  .blog-content p {
-    margin-bottom: 24px;
-  }
-  .blog-content blockquote {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem; font-style: italic; color: var(--coral);
-    border-left: 3px solid var(--coral);
-    padding-left: 24px; margin: 40px 0; line-height: 1.5;
-  }
+    /* Closing nav */
+    .blog-footer-nav {
+      background: var(--bg-alt);
+      padding: 64px var(--space-lg);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .blog-footer-back {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; color: var(--navy);
+      transition: color .2s;
+    }
+    .blog-footer-back:hover { color: var(--coral); }
+    .blog-footer-back svg { transition: transform .2s; }
+    .blog-footer-back:hover svg { transform: translateX(-3px); }
+    .blog-footer-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sage);
+    }
 
-  /* FOOTER NAV */
-  .blog-footer {
-    background: var(--bg-alt); padding: 80px 60px; text-align: center;
-  }
-  .blog-footer-link {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-size: 1rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    text-decoration: none; color: var(--navy); transition: color .2s;
-  }
-  .blog-footer-link:hover { color: var(--coral); }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .proj-nav { padding: 20px 28px; }
-    .blog-hero { padding: 140px 28px 60px; }
-    .blog-hero-img { margin: -30px 28px 40px; width: auto; aspect-ratio: 16/10; }
-    .blog-content { padding: 0 28px 60px; font-size: 1.05rem; }
-    .blog-content h2 { font-size: 1.7rem; margin-top: 48px; }
-  }
-</style>
+    @media (max-width: 900px) {
+      .blog-hero { padding: calc(var(--nav-h) + 48px) var(--space-lg) 0; }
+      .blog-hero-inner { padding-bottom: 48px; }
+      .blog-cover { margin-top: -20px; aspect-ratio: 16/9; }
+      .blog-body { padding: 48px var(--space-lg) 72px; font-size: 1rem; }
+      .blog-footer-nav { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body>
+<body class="proj-page">
 
-<nav class="proj-nav">
-  <a class="nav-logo" href="index.html">Aditya Nair</a>
-  <a class="nav-back" href="blogs.html">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Back to Blogs
-  </a>
-</nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="blog-hero">
-  <div class="blog-hero-inner">
-    <div class="blog-meta-top">
-      <span>Systems Analysis</span>
-      <span>•</span>
-      <span>June 2026</span>
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html" aria-label="Aditya Nair — back to home">Aditya Nair</a>
+    <a class="nav-back" href="blogs.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      All Blogs
+    </a>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <header class="blog-hero">
+      <div class="blog-hero-inner">
+        <div class="blog-hero-meta">
+          <span>Systems Analysis</span>
+          <span>Case Study</span>
+          <span>June 2026</span>
+        </div>
+        <h1 class="blog-hero-title">The Case of "Roll" Economy: Why RNG Games Rule Roblox.</h1>
+      </div>
+    </header>
+
+    <img
+      class="blog-cover"
+      src="CurseOfOsiris/CO1.png"
+      alt="Colourful luck-based gaming mechanics visualisation"
+      width="1100" height="471"
+      loading="eager"
+    />
+
+    <!-- ARTICLE BODY -->
+    <article class="blog-body" aria-labelledby="article-heading">
+
+      <p><strong>Executive Summary:</strong> There is a category on Roblox that does not exactly fall into the traditional sense of gaming called "RNG" games (Random Number Generation). Unlike battle/adventure games or complex mechanics, it is about one simple and highly repetitive action: click the button, wait, see what happens, then hope to hit jackpot! This case study explores why this genre is an example of brilliant user retention — and why it is so enticing for Roblox players.</p>
+
+      <h2 id="article-heading">The Mechanism of the "Compulsion Loop"</h2>
+      <p>For any RNG game, the trick is the cleverly designed <strong>Variable Ratio Reinforcement Schedule</strong>.</p>
+      <p>Consistently receiving the same prize would get boring soon. When the prize however is unpredictable — every one-hundredth click, millionth click, maybe hundred millionth click — a different concentration state enters the human brain. We are born to love uncertainty; it is in our nature.</p>
+      <p>The click of the "Roll" button is an element of gambling. The few seconds of expectation between the click and the final reveal sends a shot of dopamine through us. Since the "failure" (a common item) comes with the least effort to reset and play again, it moves on to the next cycle. It results in a circular, effortless habit: playing has become a form of "chasing".</p>
+
+      <h2>The "Status Symbol" Infrastructure</h2>
+      <p>Why would someone click their screen for hours just to achieve a virtual aura or a brightly colored halo? This is a result of <strong>Social Signaling</strong>.</p>
+      <p>Roblox is at its core a social platform. In an RNG game, your character is an indicator of social status. Once a player attains a "1 in 1,000,000" roll, the game announces it to everyone in the server — or assigns some visual flourish only they possess.</p>
+      <p>This is where a status system based solely on luck comes in, which in its own twisted way balances out the grind. Anyone may attain the most prized items by merely playing. This creates a player community that meets in the lobby just to show off their latest rolls, turning the game into a digital town square. The "addiction" doesn't just come from the game, but also the competition to be the single most exceptional person in the server.</p>
+
+      <h2>The Perfect Arena: Why Roblox?</h2>
+      <p>Roblox is the ideal breeding ground for this genre because of three factors:</p>
+      <p><strong>Low cognitive load:</strong> These games require absolutely no brain activity. You can watch a show, listen to music, or chat with friends whilst you "Roll AFK" (Away From Keyboard). It's more of a passive activity, which consumes a substantial amount of the user's day.</p>
+      <p><strong>The "Robux" escape route:</strong> Games here are excellent at making use of players' impatience. Players can buy "Auto-Roll" modules, "Luck Boosts", or shorter cooldown times with Robux if they get tired of clicking manually. The game sells users the very mechanism that made it so addictive.</p>
+      <p><strong>Velocity of viral distribution:</strong> Trends spread extremely fast on Roblox. Once a developer launches a cool RNG game, it is replicated by other developers and soon many copies circulate. The rise of so many similar games causes the genre to stay on top of the "Popular" charts, forming a self-reinforcing cycle that draws more and more players.</p>
+
+      <h2>Psychological "Hook": The Near-Miss Effect</h2>
+      <p>The <strong>Near-Miss Effect</strong> is among the most effective psychological mechanisms used. Even when a common item is rolled, the game would simulate "close calls" — showing all of the objects the player was "just short" of achieving.</p>
+      <p>For our brain, a near-miss represents progress and not failure. It implies that "luck" is present, though the probability of reaching the ideal object does not change at all. This makes the player convinced that their target is within reach, and so they keep rolling.</p>
+
+      <h2>Conclusion</h2>
+      <p>RNG games on Roblox are not games in the traditional sense; they are sophisticated feedback loops built to absorb time and grant social status. Their success lies in leveraging our innate human need to be special, without demanding the effort typical of traditional games. So long as we crave digital social statuses and low-risk excitement, these "roll-based" economies are sure to keep our eyes glued to the screen.</p>
+
+      <blockquote>
+        Given how efficiently these games operate, do you believe the gaming industry will increasingly gravitate toward these "low-effort, high-dopamine" models — or will there inevitably be a counter-movement of players seeking more substantial, skill-based experiences?
+      </blockquote>
+
+    </article>
+
+    <!-- FOOTER NAV -->
+    <div class="blog-footer-nav">
+      <a href="blogs.html" class="blog-footer-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Blogs
+      </a>
+      <span class="blog-footer-label">Aditya Nair · June 2026</span>
     </div>
-    <h1 class="blog-hero-title">The Case of "Roll" Economy: Why RNG Games Rule Roblox.</h1>
-  </div>
-</header>
 
-<img src="CurseOfOsiris/CO1.png" alt="RNG Games Roblox" class="blog-hero-img">
+  </main>
 
-<main class="blog-content">
-  <p><strong>Executive Summary:</strong> There is a category on Roblox that does not exactly fall into the traditional sense of gaming called "RNG" games (Random Number Generation). Unlike battle/adventure games or complex mechanics, it is about one simple and highly repetitive action: Click the button, wait, see what happens, then hope to hit jackpot! This case study explores why this genre is an example of brilliant user retention and also why it is so enticing for Roblox players.</p>
-
-  <h2>The Mechanism of the "Compulsion Loop"</h2>
-  <p>For any RNG game, the trick is the cleverly designed Variable Ratio Reinforcement Schedule.</p>
-  <p>Consistently receiving the same prize would get boring soon. When the prize however is unpredictable (every one-hundredth click, millionth click, maybe hundred millionth click) a different concentration state enters the human brain. We are born to love uncertainty; it is in our nature.</p>
-  <p>The click of the "Roll" button is an element of gambling. The few seconds of expectation between the click and the final reveal sends a shot of dopamine through us. Since the "failure" (a common item) comes with the least effort to reset and play again, it moves on to the next cycle. It results in a circular, effortless habit: playing has become a form of "chasing".</p>
-
-  <h2>The "Status Symbol" Infrastructure</h2>
-  <p>Why would someone click their screen for hours just to achieve a virtual aura or a brightly colored halo? This is a result of Social Signaling.</p>
-  <p>Roblox is at its core a social platform. In an RNG game, character is an indicator of social status. Once the player has attained a "1 in 1,000,000" roll the game announces it to everyone in the server, or assigns some visual flourish only they possess.</p>
-  <p>This is where a status system based solely on luck comes in, which in its own twisted way balances out the grind. Anyone may attain the most prized items by merely playing. This creates a player community that meets in the lobby just to show off their latest rolls, turning the game into a digital town square. The "addiction" doesn't just come from the game, but also the competition for the single most exceptional person in the server.</p>
-
-  <h2>The Perfect Arena: Why Roblox?</h2>
-  <p>Roblox is the ideal breeding ground for this genre because of 3 factors:</p>
-  <p><strong>Low cognitive load:</strong> These games require absolutely no brain activity. You can watch a show, listen to music, or chat with friends whilst you "Roll AFK" (Away From Keyboard). It's more of a passive activity, which consumes a substantial amount of the user's day.</p>
-  <p><strong>The "Robux" escape route:</strong> Games here are excellent at making use of players' impatience. Players can buy "Auto-Roll" modules, "Luck Boosts", or shorter cooldown times with Robux if they get tired of clicking manually. The game sells users the very mechanism that made it so addictive.</p>
-  <p><strong>Velocity of viral distribution:</strong> Trends spread extremely fast on Roblox. Once a developer launches a cool RNG game, it is replicated by other developers and soon many copies circulate. The rise of so many similar games causes the genre to stay on top of the "Popular" charts, thus forming a cycle which draws more and more players.</p>
-
-  <h2>Psychological "Hook": The Near-Miss Effect</h2>
-  <p>The "Near-Miss Effect" is among the most effective psychological mechanisms used. Even when a common item is rolled, the game would simulate the "close calls", that would show all of the objects the player was "just short" of achieving.</p>
-  <p>For our brain, a near-miss represents progress and not failure. It implies that "luck" is present though the probability of reaching the ideal object does not change at all. This makes the player convinced that their target is within reach.</p>
-
-  <h2>Conclusion</h2>
-  <p>RNG games on Roblox are not games in the traditional sense; they are sophisticated feedback loops built to absorb time and grant social status. Their success lies in leveraging our innate human need to be special, without demanding the effort typical of traditional games. So long as we crave digital social statuses and low-risk excitement, these "roll-based" economies are sure to keep our eyes glued to the screen.</p>
-  
-  <blockquote>Given how efficiently these games operate, do you believe the gaming industry will increasingly gravitate toward these "low-effort, high-dopamine" models or will there inevitably be a counter-movement of players seeking more substantial, skill-based experiences?</blockquote>
-</main>
-
-<div class="blog-footer">
-  <a href="blogs.html" class="blog-footer-link">
-    Read more case studies
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-  </a>
-</div>
+  <script>
+    /* Nav scroll shadow */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
 
 </body>
 </html>

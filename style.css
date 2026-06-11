@@ -89,6 +89,19 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(28,35,64,0.08); }
 .nav-links a:hover { color: var(--coral); }
 .nav-links a:hover::after { width: 100%; }
 
+/* Blog CTA button in nav */
+.nav-blog-btn {
+  background: var(--coral) !important;
+  color: var(--white) !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  transition: background .2s, transform .15s !important;
+}
+.nav-blog-btn::after { display: none !important; }
+.nav-blog-btn:hover { background: var(--navy) !important; transform: translateY(-1px); }
+
 /* Back link (project pages) */
 .nav-back {
   display: flex; align-items: center; gap: 8px;
@@ -143,7 +156,8 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(28,35,64,0.08); }
   opacity: 1; transform: translateY(0);
   pointer-events: all;
 }
-.nav-drawer a {
+.nav-drawer a,
+.drawer-link {
   display: block;
   font-size: 0.85rem; font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase;
@@ -152,8 +166,10 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(28,35,64,0.08); }
   border-bottom: 1px solid var(--navy-20);
   transition: color .2s, padding-left .2s;
 }
-.nav-drawer a:last-child { border-bottom: none; }
-.nav-drawer a:hover { color: var(--coral); padding-left: 8px; }
+.nav-drawer a:last-child,
+.drawer-link:last-child { border-bottom: none; }
+.nav-drawer a:hover,
+.drawer-link:hover { color: var(--coral); padding-left: 8px; }
 
 /* ── BUTTONS ──────────────────────────────────────────────── */
 .btn {
@@ -174,7 +190,7 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(28,35,64,0.08); }
 .btn-ghost:hover { border-color: var(--sage); color: var(--sage); }
 
 /* ── SECTION BASE ─────────────────────────────────────────── */
-section { padding: var(--space-xl) var(--space-lg); }
+section { padding: 72px var(--space-lg); }
 
 .section-label {
   font-size: 0.7rem; font-weight: 600;
@@ -517,6 +533,19 @@ section { padding: var(--space-xl) var(--space-lg); }
 #contact .section-label::after { display: none; }
 #contact .section-title { color: var(--bg); }
 
+/* ── BLOG TEASER ──────────────────────────────────────────── */
+.blog-teaser {
+  background: var(--navy);
+  text-align: center;
+  padding: 72px var(--space-lg);
+}
+.blog-teaser-inner {
+  max-width: 520px; margin: 0 auto;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+}
+.blog-teaser .section-title { color: var(--bg); margin-bottom: 0; }
+
 .contact-sub {
   font-size: 1rem; color: rgba(247,244,239,0.55);
   max-width: 480px; margin: 0 auto 48px;
@@ -788,6 +817,10 @@ section { padding: var(--space-xl) var(--space-lg); }
 
 /* ── PROJECT NAV FOOTER ───────────────────────────────────── */
 .proj-nav-footer {
+  position: relative;
+  height: auto;
+  padding: 0;
+  border-bottom: none;
   background: var(--navy);
   display: grid; grid-template-columns: 1fr 1fr;
   border-top: 1px solid rgba(255,255,255,0.06);
