@@ -55,7 +55,7 @@ body {
 /* ── NAV ──────────────────────────────────────────────────── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; align-items: center; justify-content: flex-end; gap: 28px;
   padding: 0 var(--space-lg);
   height: var(--nav-h);
   background: rgba(247,244,239,0.94);
@@ -72,6 +72,7 @@ nav.scrolled { box-shadow: 0 2px 24px rgba(28,35,64,0.08); }
   letter-spacing: 0.02em; color: var(--text);
   text-decoration: none;
   flex-shrink: 0;
+  margin-right: auto;
 }
 
 /* Desktop links */
@@ -138,32 +139,17 @@ html.dark-mode .proj-tool {
 }
 html.dark-mode .lightbox { background-color: rgba(15, 18, 28, 0.96); }
 
-/* Theme toggle button styling (Floating Action Button) */
+/* Theme toggle button styling */
 .theme-toggle {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 52px;
-  height: 52px;
-  background: var(--bg);
-  border: 1px solid var(--navy-20);
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--text);
+  background: none; border: none; cursor: pointer;
+  color: var(--text); padding: 8px;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transition: color 0.2s, transform 0.2s;
   margin: 0;
 }
-.theme-toggle:hover { 
-  color: var(--coral); 
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  border-color: var(--coral);
-}
+.theme-toggle:hover { color: var(--coral); transform: scale(1.1); }
 @media (max-width: 900px) {
-  .theme-toggle { bottom: 16px; right: 16px; width: 44px; height: 44px; }
+  .theme-toggle { margin-right: 8px; }
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: -2px; left: 0;
@@ -1015,7 +1001,8 @@ section { padding: 72px var(--space-lg); }
 .proj-page nav.scrolled {
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
 }
-.proj-page .nav-logo { color: var(--bg); }
+.proj-page .nav-logo { color: var(--text-light); }
+.proj-page .theme-toggle { color: var(--text-light); }
 .proj-page .nav-back {
   color: rgba(247, 244, 239, 0.55);
 }
