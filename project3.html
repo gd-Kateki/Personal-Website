@@ -214,7 +214,15 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
       <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
-      <img id="lightbox-img" src="" alt="" />
+      <button class="lightbox-prev" aria-label="Previous image">&#8249;</button>
+      <div class="lightbox-frame">
+        <img id="lightbox-img" src="" alt="" />
+        <div class="lightbox-caption">
+          <span class="lightbox-caption-text" id="lightbox-caption-text"></span>
+          <span class="lightbox-counter" id="lightbox-counter"></span>
+        </div>
+      </div>
+      <button class="lightbox-next" aria-label="Next image">&#8250;</button>
     </div>
 
     <!-- PROJECT NAV FOOTER -->
@@ -250,14 +258,44 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    const lightbox    = document.getElementById('lightbox');
+    /* Lightbox — enhanced carousel with fade, caption, swipe */
+    const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn    = lightbox.querySelector('.lightbox-close');
+    const captionText = document.getElementById('lightbox-caption-text');
+    const counterEl  = document.getElementById('lightbox-counter');
+    const closeBtn   = lightbox.querySelector('.lightbox-close');
+    const prevBtn    = lightbox.querySelector('.lightbox-prev');
+    const nextBtn    = lightbox.querySelector('.lightbox-next');
 
-    document.querySelectorAll('.proj-gallery-img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    const galleryImgs  = galleryItems.map(item => ({
+      src: item.querySelector('.proj-gallery-img').src,
+      alt: item.querySelector('.proj-gallery-img').alt,
+      caption: (item.querySelector('.gallery-caption') || {}).textContent || ''
+    }));
+    let activeIdx = -1;
+
+    function showImage(idx) {
+      if (idx < 0) idx = galleryImgs.length - 1;
+      if (idx >= galleryImgs.length) idx = 0;
+      lightboxImg.classList.add('lb-fade');
+      setTimeout(() => {
+        activeIdx = idx;
+        lightboxImg.src = galleryImgs[activeIdx].src;
+        lightboxImg.alt = galleryImgs[activeIdx].alt;
+        captionText.textContent = galleryImgs[activeIdx].caption;
+        counterEl.textContent   = `${activeIdx + 1} / ${galleryImgs.length}`;
+        lightboxImg.classList.remove('lb-fade');
+      }, 200);
+    }
+
+    galleryItems.forEach((item, idx) => {
+      item.querySelector('.proj-gallery-img').addEventListener('click', () => {
+        activeIdx = idx;
+        lightboxImg.src = galleryImgs[idx].src;
+        lightboxImg.alt = galleryImgs[idx].alt;
+        captionText.textContent = galleryImgs[idx].caption;
+        counterEl.textContent   = `${idx + 1} / ${galleryImgs.length}`;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
         closeBtn.focus();
@@ -268,11 +306,27 @@
       lightbox.classList.remove('active');
       lightboxImg.src = '';
       document.body.style.overflow = '';
+      activeIdx = -1;
     }
+
+    prevBtn.addEventListener('click', e => { e.stopPropagation(); showImage(activeIdx - 1); });
+    nextBtn.addEventListener('click', e => { e.stopPropagation(); showImage(activeIdx + 1); });
 
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
     closeBtn.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  showImage(activeIdx - 1);
+      if (e.key === 'ArrowRight') showImage(activeIdx + 1);
+    });
+
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) showImage(dx < 0 ? activeIdx + 1 : activeIdx - 1);
+    }, { passive: true });
   </script>
 
   <script>

@@ -39,6 +39,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Smooth Theme Transitions */
+body, nav, section, footer, .nav-drawer, .project-card, .char-card, .sys-card, .jam-card, 
+h1, h2, h3, h4, p, span, a, button, input, select, textarea {
+  transition: background-color 0.35s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.35s ease;
+}
+
 /* ── SKIP LINK (accessibility) ──────────────────────────── */
 .skip-link {
   position: absolute;
@@ -335,8 +341,10 @@ section { padding: 72px var(--space-lg); }
   border-right: 2px solid var(--coral);
   display: inline-block;
   padding-right: 4px;
-  animation: blink 1s step-end infinite;
   max-width: 680px;
+}
+.typewriter-line.paused {
+  animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
@@ -831,24 +839,59 @@ section { padding: 72px var(--space-lg); }
 /* ── LIGHTBOX ─────────────────────────────────────────────── */
 .lightbox {
   display: none;
+  flex-direction: column;
   position: fixed; z-index: 1000;
   inset: 0;
-  background-color: rgba(28,35,64,0.92);
+  background-color: rgba(12,16,38,0.96);
   align-items: center; justify-content: center;
-  cursor: zoom-out; backdrop-filter: blur(4px);
+  cursor: zoom-out; backdrop-filter: blur(8px);
+  padding: 24px;
+  animation: lbFadeIn 0.25s ease;
+}
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .lightbox.active { display: flex; }
+
+/* Wrapper keeps image + caption centred together */
+.lightbox-frame {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; cursor: default; max-width: 90vw;
+}
+
 .lightbox img {
-  max-width: 90%; max-height: 90%;
-  border-radius: 4px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  max-width: 100%; max-height: 82vh;
+  border-radius: 6px; box-shadow: 0 8px 48px rgba(0,0,0,0.7);
+  transition: opacity 0.22s ease;
+  display: block;
 }
+.lightbox img.lb-fade { opacity: 0; }
+
+/* Caption + counter */
+.lightbox-caption {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; gap: 12px;
+}
+.lightbox-caption-text {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  color: rgba(247,244,239,0.65); font-size: 0.85rem; flex: 1;
+}
+.lightbox-counter {
+  font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500;
+  color: rgba(247,244,239,0.4); white-space: nowrap;
+  background: rgba(255,255,255,0.07); padding: 4px 10px; border-radius: 20px;
+}
+
 .lightbox-close {
-  position: absolute; top: 24px; right: 28px;
-  background: none; border: none; color: var(--white);
-  font-size: 2rem; cursor: pointer; line-height: 1;
-  opacity: 0.6; transition: opacity .2s;
+  position: absolute; top: 20px; right: 24px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white); font-size: 1.4rem; cursor: pointer; line-height: 1;
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.7; transition: opacity .2s, background .2s;
 }
-.lightbox-close:hover { opacity: 1; }
+.lightbox-close:hover { opacity: 1; background: var(--coral); border-color: var(--coral); }
 
 /* ── TOOLS ────────────────────────────────────────────────── */
 .proj-tools-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
@@ -1009,6 +1052,146 @@ section { padding: 72px var(--space-lg); }
 .proj-page .nav-back svg { stroke: rgba(247, 244, 239, 0.55); }
 .proj-page .nav-back:hover,
 .proj-page .nav-back:hover svg { color: var(--coral); stroke: var(--coral); }
+
+/* ── CONTACT FORM ─────────────────────────────────────────── */
+.contact-form {
+  max-width: 600px;
+  margin: 40px auto 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.contact-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .contact-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.contact-form .form-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(247, 244, 239, 0.45);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--coral);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.contact-form .error-msg {
+  font-size: 0.75rem;
+  color: #F87171;
+  margin-top: 4px;
+  min-height: 16px;
+  display: block;
+}
+
+.contact-form .form-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 12px;
+  min-height: 24px;
+  transition: opacity 0.25s;
+}
+
+.contact-form .form-status.success {
+  color: var(--sage);
+}
+
+.contact-form .form-status.error {
+  color: #F87171;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ── LIGHTBOX NAV BUTTONS ─────────────────────────────────── */
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(28, 35, 64, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  font-size: 2.5rem;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, transform 0.25s;
+  z-index: 1010;
+  line-height: 1;
+  user-select: none;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: var(--coral);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: 28px;
+  padding-right: 4px;
+}
+
+.lightbox-next {
+  right: 28px;
+  padding-left: 4px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-prev,
+  .lightbox-next {
+    width: 44px;
+    height: 44px;
+    font-size: 2rem;
+  }
+  .lightbox-prev { left: 12px; }
+  .lightbox-next { right: 12px; }
+}
 
 /* ── REDUCED MOTION ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

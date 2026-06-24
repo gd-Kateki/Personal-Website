@@ -394,6 +394,34 @@
       <div class="section-label" aria-hidden="true">Contact</div>
       <h2 id="contact-title" class="section-title">Let's make something<br>worth playing.</h2>
       <p class="contact-sub">Open to full-time roles, freelance projects, and game jams. Based in Maharashtra, India.</p>
+
+      <!-- Contact Form -->
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="form-name" class="sr-only">Name</label>
+            <input type="text" id="form-name" name="name" placeholder="Name" required />
+            <span class="error-msg" id="name-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="form-email" class="sr-only">Email</label>
+            <input type="email" id="form-email" name="email" placeholder="Email" required />
+            <span class="error-msg" id="email-error"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="form-subject" class="sr-only">Subject</label>
+          <input type="text" id="form-subject" name="subject" placeholder="Subject" required />
+          <span class="error-msg" id="subject-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="form-message" class="sr-only">Message</label>
+          <textarea id="form-message" name="message" rows="5" placeholder="Your message..." required></textarea>
+          <span class="error-msg" id="message-error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 12px; width: 100%; max-width: 200px; display: inline-block;">Send Message</button>
+        <div class="form-status" id="form-status"></div>
+      </form>
       <div class="contact-links">
         <a href="mailto:aditya.gamedesigner0402@gmail.com" class="contact-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -486,12 +514,15 @@
     function type() {
       const current = lines[lineIdx];
       if (!deleting) {
+        el.classList.remove('paused');
         el.textContent = current.slice(0, ++charIdx);
         if (charIdx === current.length) {
+          el.classList.add('paused');
           setTimeout(() => { deleting = true; type(); }, 2800);
           return;
         }
       } else {
+        el.classList.remove('paused');
         el.textContent = current.slice(0, --charIdx);
         if (charIdx === 0) {
           deleting = false;
@@ -530,6 +561,80 @@
           localStorage.setItem('theme', 'light');
         }
         updateThemeIcon();
+      });
+    }
+  </script>
+
+  <script>
+    /* ── Contact Form Submission & Validation ── */
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let isValid = true;
+        const nameInput = document.getElementById('form-name');
+        const emailInput = document.getElementById('form-email');
+        const subjectInput = document.getElementById('form-subject');
+        const messageInput = document.getElementById('form-message');
+        
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const subjectError = document.getElementById('subject-error');
+        const messageError = document.getElementById('message-error');
+        const formStatus = document.getElementById('form-status');
+        
+        // Reset errors
+        nameError.textContent = '';
+        emailError.textContent = '';
+        subjectError.textContent = '';
+        messageError.textContent = '';
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
+        
+        // Name validation
+        if (!nameInput.value.trim()) {
+          nameError.textContent = 'Please enter your name.';
+          isValid = false;
+        }
+        
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput.value.trim()) {
+          emailError.textContent = 'Please enter your email.';
+          isValid = false;
+        } else if (!emailPattern.test(emailInput.value.trim())) {
+          emailError.textContent = 'Please enter a valid email address.';
+          isValid = false;
+        }
+        
+        // Subject validation
+        if (!subjectInput.value.trim()) {
+          subjectError.textContent = 'Please enter a subject.';
+          isValid = false;
+        }
+        
+        // Message validation
+        if (!messageInput.value.trim()) {
+          messageError.textContent = 'Please enter a message.';
+          isValid = false;
+        }
+        
+        if (isValid) {
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
+          
+          // Simulate API call
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+            formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+            formStatus.className = 'form-status success';
+            contactForm.reset();
+          }, 1500);
+        }
       });
     }
   </script>
